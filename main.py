@@ -1,15 +1,15 @@
-import tkinter as tk
-from tkinter import messagebox, simpledialog
-from tkcalendar import Calendar
 import os
 import json
+import tkinter as tk
+from tkinter import messagebox, simpledialog, PhotoImage
+from tkcalendar import Calendar
+from PIL import Image, ImageTk
+
 
 
 class EventApp:
     def __init__(self, master):
         self.master = master
-        self.master.title('Crypto Calendar')
-        self.master.geometry('800x600')
 
         self.data_folder = 'data'
         self.events_file = os.path.join(self.data_folder, 'events.json')
@@ -63,8 +63,14 @@ class EventApp:
         print(self.events) 
 
 
-
 if __name__ == '__main__':
     root = tk.Tk()
+    root.title('Crypto Calendar')
+    root.geometry('800x600')
+
+    img = Image.open('static/app-icon.jpg')
+    photo = ImageTk.PhotoImage(img)
+    root.iconphoto(False, photo)
+
     app = EventApp(root)
     root.mainloop()
