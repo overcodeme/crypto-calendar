@@ -45,16 +45,23 @@ class EventApp:
             if date in self.events:
                 self.events[date].append(event)
             else:
-                self.events[date] = event
+                self.events[date] = [event]
             messagebox.showinfo('Добавлено', 'Событие добавлено!')
-        self.save_events()
+            self.save_events()
 
 
     def view_events(self):
         date = self.calendar.get_date()
         events_for_date = self.events.get(date, [])
-        events_str = '\n'.join(events_for_date) if events_for_date else 'Нет событий'
+
+        if events_for_date:
+            events_str = '\n'.join(events_for_date) 
+        else:
+            events_str = 'Нет событий'
+        
         messagebox.showinfo("События", events_str)
+        print(self.events) 
+
 
 
 if __name__ == '__main__':
