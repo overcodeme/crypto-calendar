@@ -14,15 +14,16 @@ class EventApp:
         self.DATA_FOLDER = 'data'
         self.EVENTS_FILE = os.path.join(self.DATA_FOLDER, 'events.json')
         self.events = self.load_events()
+        
+        self.ADD_BUTTON = ttk.Button(master, text='Добавить', command=self.add_event)
+        self.ADD_BUTTON.pack()
+
+        self.VIEW_BUTTON = ttk.Button(master, text='Просмотреть', command=self.view_events)
+        self.VIEW_BUTTON.pack()
 
         self.CALENDAR = Calendar(master, selectmode='day', year=2025, month=1, day=1)
         self.CALENDAR.pack(pady=20)
-
-        self.ADD_BUTTON = ttk.Button(master, text='Добавить', command=self.add_event)
-        self.ADD_BUTTON.pack(pady=10)
-
-        self.VIEW_BUTTON = ttk.Button(master, text='Просмотреть', command=self.view_events)
-        self.VIEW_BUTTON.pack(pady=10)
+        self.CALENDAR.bind("<Double-1>", self.on_date_double_click)
 
 
     def load_events(self):
@@ -89,11 +90,15 @@ class EventApp:
             no_events_label = ttk.Label(view_dialog, text='Нет событий на этот день')
             no_events_label.pack(pady=10)
 
+    
+    def on_date_double_click(self):
+        self.view_events()
+
 
 if __name__ == '__main__':
     root = tk.Tk()
     root.title('Crypto Calendar')
-    root.geometry('800x600')
+    root.geometry('640x480')
 
     icon = Image.open('static/main-app-icon.png')
     photo = ImageTk.PhotoImage(icon)
